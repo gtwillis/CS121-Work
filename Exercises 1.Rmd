@@ -1,0 +1,23 @@
+## *Exercises 1.* 
+
+Differentiate the following:
+
+(1) $y=x^{13}$ 
+
+(2) $y=x^{-\frac{3}{2}}$
+
+(3) $y=x^{2a}$
+
+(4) $u=t^{2*4}$
+
+(5) $z=\sqrt[3]{u}$
+
+(6) $y=\sqrt[3]{x^{-5}}$
+
+(7) $u=\sqrt[5]{\frac{1}{x^8}}$
+
+(8) $y=2x^a$
+
+(9) $y=\sqrt[q]{x^3}$
+
+(10) $y=\sqrt[n]{\frac{1}{x^m}}$
