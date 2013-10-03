@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Functions and Graphics</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Functions and Graphics</h1>
+
+<h2>Sums of numbers</h2>
+
+<h3>How many are odd</h3>
+
+<pre><code>&gt; countOdds&lt;- function(x){
++     sum(x%%2)
++ }
+</code></pre>
+
+<h3>How many are even</h3>
+
+<pre><code>&gt; countEvens&lt;- function(x){
++     sum((x+1)%%2)
++ }
+</code></pre>
+
+<h2>Triangles</h2>
+
+<h3>Pythagoras</h3>
+
+<pre><code>&gt; hypotenuseLength&lt;- function(a,b){
++     sqrt((a^2)+(b^2))
++ }
+</code></pre>
+
+<h3>Law of Cosines</h3>
+
+<pre><code>&gt; lawOfCosines&lt;- function(a,b,theta){
++     sqrt((a^2)+(b^2)-2*a*b*cos(theta))
++ }
+</code></pre>
+
+<h3>Find the angle</h3>
+
+<pre><code>&gt; thetaFromLengths&lt;- function(a,b,c) {
++     acos(((a^2)+(b^2)-(c^2))/(2*a*b))
++ }
+</code></pre>
+
+<h3>Test thetaFromLengths()</h3>
+
+<pre><code>&gt; thetaFromLengthsTest&lt;- function(a,b,theta){
++     thetaFromLengths(a,b,lawOfCosines(a,b,theta))-theta 
++ }
+</code></pre>
+
+<h2>Graphics</h2>
+
+<h3>Function: canvas()</h3>
+
+<pre><code>&gt; canvas&lt;- function(x,y,...){
++     plot(x,y,type=&quot;n&quot;,axes=FALSE,ann=FALSE,xlim=c(0,x), ylim = c(0,y))
++ }
+</code></pre>
+
+<h3>Function: drawCircle()</h3>
+
+<pre><code>&gt; drawCircle&lt;- function(x,y,r){
++     angs=seq(0,2*(pi), length=1000)
++     xpts&lt;- x+r*cos(angs)
++     ypts&lt;- y+r*sin(angs)
++     polygon(xpts,ypts,border=NULL)
++     }
+</code></pre>
+
+<h3>Function: modify drawCircle()</h3>
+
+<pre><code>&gt; drawCircle&lt;- function(x,y,r,...){
++    angs=seq(0,2*(pi), length=1000)
++    xpts&lt;- x+r*cos(angs)
++    ypts&lt;- y+r*sin(angs)
++    polygon(xpts,ypts,border=NULL,...)
++}
+</code></pre>
+
+<h3>Draw overlapping circles</h3>
+
+<pre><code>plot(100,100,asp=1)
+drawCircle(20,50,15)
+drawCircle(30,40,15)
+drawCircle(40,50,15)
+drawCircle(50,40,15)
+drawCircle(60,50,15)
+</code></pre>
+
+<h3>Draw the Olympic logo</h3>
+
+<pre><code>plot(100,100,asp=1)
+drawCircle(20,50,15, lwd=500, col=&quot;blue&quot;)
+drawCircle(30,40,15, lwd=500, col=&quot;yellow&quot;)
+drawCircle(40,50,15, lwd=500)
+drawCircle(50,40,15, lwd=500, col=&quot;green&quot;)
+drawCircle(60,50,15, lwd=500, col=&quot;red&quot;)
+</code></pre>
+
+</body>
+
+</html>
+
