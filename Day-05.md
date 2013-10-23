@@ -1,0 +1,46 @@
+Numbers and Strings
+========================================================
+
+## Basic Statistics
+
+
+```r
+outlier <- function(x) {
+    result <- c()
+    lowerLim <- as.numeric(quantile(x, probs = 0.25))
+    upperLim <- as.numeric(quantile(x, probs = 0.75))
+    for (k in 1:length(x)) {
+        if (lowerLim <= x[k] & upperLim >= x[k]) {
+            result <- c(result, TRUE)
+        } else {
+            result <- c(result, FALSE)
+        }
+    }
+    return(result)
+}
+```
+
+
+## Numbers and Languages
+
+```r
+digitToWords <- function(numbers, words) {
+    result <- c()
+    for (k in 1:length(numbers)) {
+        outputWord <- words[numbers[k]]
+        result <- c(result, outputWord)
+    }
+    return(result)
+}
+```
+
+
+```r
+digitToWords(c(3, 4, 2, 1, 5), c("domus", "virum", "confutatis", "magnificat", 
+    "requiem"))
+```
+
+```
+## [1] "confutatis" "magnificat" "virum"      "domus"      "requiem"
+```
+
