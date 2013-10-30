@@ -34,3 +34,94 @@ digitToWords <- function(numbers, words) {
 ```{r}
 digitToWords (c(3,4,2,1,5),c("domus","virum","confutatis","magnificat","requiem"))
 ```
+
+## Help for Crossword Puzzles
+```{r}
+lettersMatch <- function(words, pattern){
+  template<- grepl(pattern, words)
+  result<-c()
+  for (k in 1:length(words)) {
+    if (template[k] == TRUE){
+      result<- c(result, words[k])
+    }
+  } 
+  return(result)
+}
+```
+```{r}
+lettersMatch(c("one","two","three","four","five","six"),"f")
+```
+
+## Have your π two ways
+### One way: A Series
+```{r}
+piSeries<- function(n){
+  result <- c()
+  for (k in 1:n){
+    res <- (((-1)^(k+1))/(-1+2*k))
+    result <- sum(result, res)
+  }
+  return(4*result)
+}
+```
+```{r}
+howCloseToPi <- function(n){
+  yValues <- function(n){
+  vector<- c()
+  for (k in 1:n){
+    vector <- c(vector, (piSeries(k)-pi))
+  }
+  return(vector)
+}
+  x<-(1:n)
+  y<- yValues(n)
+  plot(x,y, ylab="divergence from pi", xlab="n" )
+  
+  }
+```
+
+How close?
+
+```{r}
+howCloseToPi(100)
+```
+
+Accuracy to 3 digits?
+
+```{r}
+yValues <- function(n){
+  vector<- c()
+  for (k in 1:n){
+    vector <- c(vector, (piSeries(k)))
+  }
+  return(vector)
+  }
+```
+```{r}
+yValues(200)
+# n=127
+```
+Accuracy to 15 digits would probably require a value of n on the order of 10^5
+### Another way:A "Monte Carlo" Method
+```{r}
+randomApproxToPi <- function(n){
+  x <- runif(n)
+  y <- runif(n)
+  bank <- c()
+  for (k in 1:n){
+    if (((x[k])^2+(y[k])^2) < 1) {
+      bank <- sum(bank,1)
+    }
+  }
+  return(4*bank/n)
+}
+```
+
+How close?
+
+```{r}
+x <- 10^runif(100,min=2,max=6)
+y <- sapply(x, randomApproxToPi)
+plot(x,y,pch=20, col=rgb(0,0,0,.4), log="x", ylab="Approx to pi", xlab="n")
+```
+
