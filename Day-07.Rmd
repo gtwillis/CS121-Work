@@ -1,0 +1,91 @@
+Crosswords, Scabble, and Regular Expressions
+========================================================
+
+```{r}
+# Load word bank
+words <- readLines(url("http://dtkaplan.github.io/ScientificComputing/Syllabus/Daily/Day-07/word_list_moby_crossword-flat/word_list_moby_crossword.flat.txt"))
+```
+
+### Summarizing the List
+
+The number of words of length 1, of length 2, of length 3, etc...
+```{r}
+# number of words of length 1
+length(grep("^.$",words))
+# number of words of length 2
+length(grep("^..$",words))
+# number of words of length 3
+length(grep("^...$",words))
+```
+The 100 longest words.
+```{r}
+longestWords <- function (n,bank){
+  pattern <- "^..$"
+  repeat{
+    bank <- grep(pattern, bank, value=TRUE, invert=TRUE)
+    pattern <- sub("^.","^.",pattern)
+    if (length(bank) < n ){
+      for (k in 1:(n-(length(bank)))){
+        secondBank<- grep(pattern, words, value=TRUE)
+        bank <- c(bank, secondBank[k])
+      }
+    }
+    if (length(bank) == n) break
+  }
+    return(bank)
+  }
+```
+```{r}
+longestWords(100,words)
+```
+The number of words starting with each of “a”, “b”, “c”, and so on.
+```{r}
+# number of words starting with "a"
+length(grep("^a",words))
+```
+```{r}
+# number of words starting with "b"
+length(grep("^b",words))
+```
+```{r}
+# number of words starting with "c"
+length(grep("^c",words))
+```
+The full list of words with a “q” but no “u” following.
+```{r}
+grep("^q[^u]",words,value=TRUE)
+```
+### Crossword helper
+```{r}
+# expression comes in the form "^.....$"
+crossword <- function(expression){
+  return(grep(expression,words,value=TRUE))
+}
+```
+### A Better Crossword helper
+```{r}
+crosswordPattern <- function (x){
+  outputPattern <- paste(rep.int(".",as.numeric(x[length(x)])),sep="")
+  for (k in 1:(length(x)-1)){
+    outputPattern[x[k]] <- labels(x[k])
+  }
+  finalOutput <- ""
+  for (k in 1:length(outputPattern)){
+    finalOutput <- paste(finalOutput,outputPattern[k],sep="")
+  }
+  return(paste("^",finalOutput,"$",sep=""))
+}
+```
+```{r}
+crosswordPattern(c(b=1,s=7,length=7))
+```
+Packaged up
+```{r}
+crosswordPackage <- function (x){
+  return(crossword(crosswordPattern(x)))
+}
+```
+```{r}
+crosswordPackage(c(c=1,z=7,length=13))
+```
+Proving that the list does not contain "cryptozoology"
