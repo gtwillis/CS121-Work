@@ -1,0 +1,44 @@
+Base conversion
+========================================================
+## Task 1
+```{r}
+toBase <- function (Z,b){
+  output <- c()
+  repeat {
+    r <- Z%%b
+    output<- c(as.character(r),output)
+    Z<- (Z-r)/b
+    if (Z == 0) break
+  }
+  return(output)
+}
+```
+```{r}
+toBase(Z = 10, b = 2)
+toBase(Z = 100, b = 3)
+toBase(Z = 1000, b = 16)
+```
+## Task 2
+with a loop
+```{r}
+baseToNumeric <- function (number,b){
+  numeric <- 0
+  for (k in 1:length(number)){
+    numeric <- numeric+(as.numeric(number[k])*b^(length(number)-k))
+  }
+  return(numeric)
+}
+```
+```{r}
+baseToNumeric(c("3","14","8"),16)
+```
+without a loop
+```{r}
+baseToNumeric <- function (number,b){
+  numeric <- as.numeric(number)*b^((length(number)-1):0)
+  return(sum(numeric))
+}
+```
+```{r}
+baseToNumeric(c("3","14","8"),16)
+```
