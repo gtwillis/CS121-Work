@@ -1,0 +1,22 @@
+Language
+========================================================
+```{r}
+require(mosaic)
+fetchData("COMP121/word-hints.R")
+```
+1. letterProportion
+```{r}
+letterProportion <- function (string){
+  string<-tolower(string)
+  string<- unlist(strsplit(string,split=NULL))
+  proportions <- c()
+  for (k in 1:26){
+    proportions <- c(proportions,((sum(grepl(letters[k],string)))/length(string)))
+  }
+  
+  return(as.table(proportions))
+}
+letterProportion("birdman")
+```
+
+I was unable to figure out how to coerce the data properly in the time provided. Please be merciful!
